@@ -93,14 +93,14 @@ declare const EyeDropper: EyeDropperConstructor;
 export default class SlColorPicker extends ShoelaceElement implements ShoelaceFormControl {
   static styles: CSSResultGroup = [componentStyles, styles];
 
-  static dependencies = {
-    'sl-button-group': SlButtonGroup,
-    'sl-button': SlButton,
-    'sl-dropdown': SlDropdown,
-    'sl-icon': SlIcon,
-    'sl-input': SlInput,
-    'sl-visually-hidden': SlVisuallyHidden
-  };
+  static dependencies: Record<string, typeof ShoelaceElement> = {
+    'sl-button-group': SlButtonGroup as unknown as typeof ShoelaceElement,
+    'sl-button': SlButton as unknown as typeof ShoelaceElement,
+    'sl-dropdown': SlDropdown as unknown as typeof ShoelaceElement,
+    'sl-icon': SlIcon as unknown as typeof ShoelaceElement,
+    'sl-input': SlInput as unknown as typeof ShoelaceElement,
+    'sl-visually-hidden': SlVisuallyHidden as unknown as typeof ShoelaceElement
+  }; 
 
   private readonly formControlController = new FormControlController(this);
   private isSafeValue = false;

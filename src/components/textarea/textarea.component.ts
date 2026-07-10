@@ -104,7 +104,7 @@ export default class SlTextarea extends ShoelaceElement implements ShoelaceFormC
   @property() autocapitalize: 'off' | 'none' | 'on' | 'sentences' | 'words' | 'characters';
 
   /** Indicates whether the browser's autocorrect feature is on or off. */
-  @property() autocorrect: string;
+  @property({ type: Boolean, attribute: 'autocorrect' }) autocorrect = false;
 
   /**
    * Specifies what permission the browser has to provide assistance in filling out form field values. Refer to

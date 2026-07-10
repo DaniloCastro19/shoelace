@@ -1,0 +1,28 @@
+Invoking: node scripts/build.js 
+- Cleaning up the previous build
+✔ Cleaning up the previous build
+- Generating component metadata
+✔ Generating component metadata
+- Wrapping components for React
+✔ Wrapping components for React
+- Generating themes
+✔ Generating themes
+- Packaging up icons
+✔ Packaging up icons
+- Running the TypeScript compiler
+✔ Running the TypeScript compiler
+- Themes, Icons, and TS Types to "cdn"
+✔ Themes, Icons, and TS Types to "cdn"
+- Building source files
+✔ Building source files
+- Copying the build to "_site"
+✔ Copying the build to "_site"
+- Building the docs
+(node:23724) [DEP0190] DeprecationWarning: Passing args to a child process with shell option true can lead to security vulnerabilities, as the arguments are not escaped, only concatenated.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+✔ Building the docs
+
+[11ty] Benchmark  16361ms  24%    87× (Configuration) "html-transform" Transform
+
+[11ty] Copied 33 files / Wrote 87 files in 38.84 seconds (446.4ms each, v2.0.1)
+

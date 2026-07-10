@@ -1,0 +1,28 @@
+{"kind":"O","text":"Invoking: node scripts/build.js \n"}
+{"kind":"E","text":"- Cleaning up the previous build\n"}
+{"kind":"O","text":"✔ Cleaning up the previous build\n"}
+{"kind":"E","text":"- Generating component metadata\n"}
+{"kind":"O","text":"✔ Generating component metadata\n"}
+{"kind":"E","text":"- Wrapping components for React\n"}
+{"kind":"O","text":"✔ Wrapping components for React\n"}
+{"kind":"E","text":"- Generating themes\n"}
+{"kind":"O","text":"✔ Generating themes\n"}
+{"kind":"E","text":"- Packaging up icons\n"}
+{"kind":"O","text":"✔ Packaging up icons\n"}
+{"kind":"E","text":"- Running the TypeScript compiler\n"}
+{"kind":"O","text":"✔ Running the TypeScript compiler\n"}
+{"kind":"E","text":"- Themes, Icons, and TS Types to \"cdn\"\n"}
+{"kind":"O","text":"✔ Themes, Icons, and TS Types to \"cdn\"\n"}
+{"kind":"E","text":"- Building source files\n"}
+{"kind":"O","text":"✔ Building source files\n"}
+{"kind":"E","text":"- Copying the build to \"_site\"\n"}
+{"kind":"O","text":"✔ Copying the build to \"_site\"\n"}
+{"kind":"E","text":"- Building the docs\n"}
+{"kind":"E","text":"(node:23724) [DEP0190] DeprecationWarning: Passing args to a child process with shell option true can lead to security vulnerabilities, as the arguments are not escaped, only concatenated.\n"}
+{"kind":"E","text":"(Use `node --trace-deprecation ...` to show where the warning was created)\n"}
+{"kind":"O","text":"✔ Building the docs\n"}
+{"kind":"O","text":"\n"}
+{"kind":"O","text":"[11ty] Benchmark  16361ms  24%    87× (Configuration) \"html-transform\" Transform\n"}
+{"kind":"O","text":"\n"}
+{"kind":"O","text":"[11ty] Copied 33 files / Wrote 87 files in 38.84 seconds (446.4ms each, v2.0.1)\n"}
+{"kind":"O","text":"\n"}
