@@ -88,19 +88,19 @@ export default class SlPagination extends ShoelaceElement {
         tabindex=${this.disabled ? '-1' : '0'}
         @keydown=${this.handleKeyDown}
       >
-        <button onClick=${this.handlePrev()}>Prev</button>
+        <button @click=${this.handlePrev}>Prev</button>
         ${Array.from({length: this.total}, (_ , index) => index + 1).map(x => {
           return html`
             <button 
               class=${classMap({
               pagination__item: true
             })}
-            onClick=${this.goToPage(this.page)}>
+            @click=${() => this.goToPage(x)}>
               ${x}
             </button>
           `
         })}
-        <button onClick=${this.handleNext()}>Next</button>
+        <button @click=${this.handleNext}>Next</button>
       </div>
     `;
   }
