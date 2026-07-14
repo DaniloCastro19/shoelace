@@ -25,7 +25,6 @@ export default class SlPagination extends ShoelaceElement {
 
   @property({ type: String }) label = 'pagination';
 
-
   connectedCallback(): void {
     super.connectedCallback();
     this.setAttribute('role', 'navigation');
@@ -45,6 +44,14 @@ export default class SlPagination extends ShoelaceElement {
 
     this.page = clamped;
     this.dispatchEvent(new CustomEvent('sl-change', { detail: { page: this.page } }));
+  }
+
+  private canGoPrev(): boolean {
+    return this.page > 1;
+  }
+
+  private canGoNext(): boolean {
+    return this.page < this.total;
   }
 
   private handlePrev() {
@@ -85,22 +92,40 @@ export default class SlPagination extends ShoelaceElement {
         class=${classMap({
           pagination: true
         })}
-        tabindex=${this.disabled ? '-1' : '0'}
         @keydown=${this.handleKeyDown}
       >
-        <button @click=${this.handlePrev}>Prev</button>
-        ${Array.from({length: this.total}, (_ , index) => index + 1).map(x => {
+        <button
+          class=${classMap({
+            pagination__item: true
+          })}
+          @click=${this.handlePrev}
+          ?disabled=${!this.canGoPrev()}
+        >
+          ←
+        </button>
+        ${Array.from({ length: this.total }, (_, index) => index + 1).map(x => {
           return html`
-            <button 
+            <button
+              tabindex=${this.page === x}
               class=${classMap({
-              pagination__item: true
-            })}
-            @click=${() => this.goToPage(x)}>
+                pagination__item: true,
+                'pagination__item--active': this.page === x
+              })}
+              @click=${() => this.goToPage(x)}
+            >
               ${x}
             </button>
-          `
+          `;
         })}
-        <button @click=${this.handleNext}>Next</button>
+        <button
+          class=${classMap({
+            pagination__item: true
+          })}
+          @click=${this.handleNext}
+          ?disabled=${!this.canGoNext()}
+        >
+          →
+        </button>
       </div>
     `;
   }

@@ -18,11 +18,11 @@
 {"kind":"E","text":"- Copying the build to \"_site\"\n"}
 {"kind":"O","text":"✔ Copying the build to \"_site\"\n"}
 {"kind":"E","text":"- Building the docs\n"}
-{"kind":"E","text":"(node:34808) [DEP0190] DeprecationWarning: Passing args to a child process with shell option true can lead to security vulnerabilities, as the arguments are not escaped, only concatenated.\n"}
+{"kind":"E","text":"(node:38188) [DEP0190] DeprecationWarning: Passing args to a child process with shell option true can lead to security vulnerabilities, as the arguments are not escaped, only concatenated.\n"}
 {"kind":"E","text":"(Use `node --trace-deprecation ...` to show where the warning was created)\n"}
 {"kind":"O","text":"✔ Building the docs\n"}
 {"kind":"O","text":"\n"}
-{"kind":"O","text":"[11ty] Benchmark  16669ms  40%    87× (Configuration) \"html-transform\" Transform\n"}
+{"kind":"O","text":"[11ty] Benchmark  13101ms  37%    87× (Configuration) \"html-transform\" Transform\n"}
 {"kind":"O","text":"\n"}
-{"kind":"O","text":"[11ty] Copied 33 files / Wrote 87 files in 41.19 seconds (473.4ms each, v2.0.1)\n"}
+{"kind":"O","text":"[11ty] Copied 33 files / Wrote 87 files in 34.41 seconds (395.5ms each, v2.0.1)\n"}
 {"kind":"O","text":"\n"}
