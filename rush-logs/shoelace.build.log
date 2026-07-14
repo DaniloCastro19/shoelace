@@ -18,11 +18,11 @@ Invoking: node scripts/build.js
 - Copying the build to "_site"
 ✔ Copying the build to "_site"
 - Building the docs
-(node:38188) [DEP0190] DeprecationWarning: Passing args to a child process with shell option true can lead to security vulnerabilities, as the arguments are not escaped, only concatenated.
+(node:35776) [DEP0190] DeprecationWarning: Passing args to a child process with shell option true can lead to security vulnerabilities, as the arguments are not escaped, only concatenated.
 (Use `node --trace-deprecation ...` to show where the warning was created)
 ✔ Building the docs
 
-[11ty] Benchmark  13101ms  37%    87× (Configuration) "html-transform" Transform
+[11ty] Benchmark  14007ms  39%    87× (Configuration) "html-transform" Transform
 
-[11ty] Copied 33 files / Wrote 87 files in 34.41 seconds (395.5ms each, v2.0.1)
+[11ty] Copied 33 files / Wrote 87 files in 35.25 seconds (405.2ms each, v2.0.1)
 

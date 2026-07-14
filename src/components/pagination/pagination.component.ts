@@ -4,8 +4,7 @@ import { property } from 'lit/decorators.js';
 import componentStyles from '../../styles/component.styles.js';
 import ShoelaceElement from '../../internal/shoelace-element.js';
 import styles from './pagination.styles.js';
-import type { CSSResultGroup } from 'lit';
-
+import type { CSSResultGroup, PropertyValues } from 'lit';
 /**
  * @summary A pagination control for navigating between pages of content.
  * @since 2.0
@@ -29,6 +28,22 @@ export default class SlPagination extends ShoelaceElement {
     super.connectedCallback();
     this.setAttribute('role', 'navigation');
     this.setAttribute('aria-label', this.label);
+  }
+
+  /* 
+    Roving Tabindex Accessibility pattern:
+    When the page state change, search the current --active button 
+    and force the focus on it over it using updated Lit lifecycle 
+  */
+  protected updated(changedProperties: PropertyValues) {
+    super.updated(changedProperties);
+
+    if (changedProperties.has('page')) {
+      const activeButton = this.renderRoot.querySelector('.pagination__item--active')! as HTMLElement;
+      if (activeButton) {
+        activeButton.focus();
+      }
+    }
   }
 
   private goToPage(target: number) {
@@ -106,7 +121,7 @@ export default class SlPagination extends ShoelaceElement {
         ${Array.from({ length: this.total }, (_, index) => index + 1).map(x => {
           return html`
             <button
-              tabindex=${this.page === x}
+              tabindex=${this.page === x ? '0' : '-1'}
               class=${classMap({
                 pagination__item: true,
                 'pagination__item--active': this.page === x
