@@ -6,7 +6,7 @@ describe('<sl-pagination>', () => {
   interface pageProps {
     page: number;
   }
-  it('should render a component', async () => {
+  it('should render the component', async () => {
     const el = await fixture<SlPagination>(html` <sl-pagination></sl-pagination> `);
 
     await expect(el).is.accessible();
@@ -31,10 +31,45 @@ describe('<sl-pagination>', () => {
       </sl-pagination>
     `);
 
-    
     const totalBtnsRendered = el.shadowRoot!.querySelectorAll('button').length;
-    console.log(el.shadowRoot!.querySelectorAll('button'));
-
     expect(totalBtnsRendered).to.equal(total + 2); // Total pages buttom + Prev & Next buttoms
+  });
+
+  it('disable prev button when page is the first one', async () => {
+    let page = 1;
+    const total = 5;
+    const setCurrentPage = (newPage: number) => {
+      page = newPage;
+    };
+    const el = await fixture<SlPagination>(html`
+      <sl-pagination
+        page=${page}
+        total=${total}
+        onSlChange=${(event: CustomEvent<pageProps>) => setCurrentPage(event.detail.page)}
+      >
+      </sl-pagination>
+    `);
+
+    const prevBtn = el.shadowRoot!.querySelectorAll('button')[0];
+    expect(prevBtn.disabled).to.be.true;
+  });
+
+  it('disable next button when page is the last one', async () => {
+    let page = 5;
+    const total = 5;
+    const setCurrentPage = (newPage: number) => {
+      page = newPage;
+    };
+    const el = await fixture<SlPagination>(html`
+      <sl-pagination
+        page=${page}
+        total=${total}
+        onSlChange=${(event: CustomEvent<pageProps>) => setCurrentPage(event.detail.page)}
+      >
+      </sl-pagination>
+    `);
+
+    const nextBtn = el.shadowRoot!.querySelectorAll('button')[6];
+    expect(nextBtn.disabled).to.be.true;
   });
 });
