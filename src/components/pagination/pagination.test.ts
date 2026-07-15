@@ -1,5 +1,5 @@
 import '../../../dist/shoelace.js';
-import { expect, fixture, html } from '@open-wc/testing';
+import { expect, fixture, html, oneEvent } from '@open-wc/testing';
 import type SlPagination from './pagination.component.js';
 
 describe('<sl-pagination>', () => {
@@ -71,5 +71,29 @@ describe('<sl-pagination>', () => {
 
     const nextBtn = el.shadowRoot!.querySelectorAll('button')[6];
     expect(nextBtn.disabled).to.be.true;
+  });
+
+  it('emit the right event with the right data when the page changes', async () => {
+    let page = 1;
+    const total = 5;
+
+    const setCurrentPage = (newPage: number) => {
+      page = newPage;
+    };
+    const el = await fixture<SlPagination>(html`
+      <sl-pagination
+        page=${page}
+        total=${total}
+        onSlChange=${(event: CustomEvent<pageProps>) => setCurrentPage(event.detail.page)}
+      >
+      </sl-pagination>
+    `);
+
+    const secondPageBtn = el.shadowRoot!.querySelectorAll('button')[2];
+
+    setTimeout(() => (secondPageBtn as HTMLElement).click());
+    const event = await oneEvent<CustomEvent<pageProps>>(el, 'sl-change');
+
+    expect(event.detail.page).to.equal(2);
   });
 });
