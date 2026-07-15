@@ -114,13 +114,14 @@ export default class SlPagination extends ShoelaceElement {
             pagination__item: true
           })}
           @click=${this.handlePrev}
-          ?disabled=${!this.canGoPrev()}
+          ?disabled=${!this.canGoPrev() || this.disabled}
         >
           ←
         </button>
         ${Array.from({ length: this.total }, (_, index) => index + 1).map(x => {
           return html`
             <button
+              disabled=${this.disabled}
               tabindex=${this.page === x ? '0' : '-1'}
               class=${classMap({
                 pagination__item: true,
@@ -137,7 +138,7 @@ export default class SlPagination extends ShoelaceElement {
             pagination__item: true
           })}
           @click=${this.handleNext}
-          ?disabled=${!this.canGoNext()}
+          ?disabled=${!this.canGoNext() || this.disabled}
         >
           →
         </button>
