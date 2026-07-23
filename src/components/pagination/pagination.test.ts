@@ -24,13 +24,13 @@ describe('<sl-pagination>', () => {
 
   it('disables the "previous" button when on the first page', async () => {
     const el = await fixture<SlPagination>(html`<sl-pagination page="1" total="5"></sl-pagination>`);
-    const prevBtn = el.shadowRoot!.querySelector('button:first-of-type') as HTMLButtonElement;
+    const prevBtn = el.shadowRoot!.querySelector('button:first-of-type')! as HTMLButtonElement;
     expect(prevBtn.disabled).to.be.true;
   });
 
   it('disables the "next" button when on the last page', async () => {
     const el = await fixture<SlPagination>(html`<sl-pagination page="5" total="5"></sl-pagination>`);
-    const nextBtn = el.shadowRoot!.querySelector('button:last-of-type') as HTMLButtonElement;
+    const nextBtn = el.shadowRoot!.querySelector('button:last-of-type')! as HTMLButtonElement;
     expect(nextBtn.disabled).to.be.true;
   });
 

@@ -15,6 +15,8 @@ import type { CSSResultGroup, PropertyValues } from 'lit';
  */
 export default class SlPagination extends ShoelaceElement {
   static styles: CSSResultGroup = [componentStyles, styles];
+  private ELIPSIS_MAX_RANGE_TO_SHOW: number = 1;
+  private ELLIPSIS_STRING = '...';
 
   @property({ type: Number, reflect: true }) page = 1;
 
@@ -46,12 +48,17 @@ export default class SlPagination extends ShoelaceElement {
     }
   }
 
-  private goToPage(target: number) {
-    if (this.disabled) {
+  private goToPage(target: number | string) {
+    if (this.disabled || target === this.ELLIPSIS_STRING) {
       return;
     }
 
-    const clamped = Math.max(1, Math.min(this.total || 1, Math.floor(target)));
+    const parsedTarget = typeof target === 'string' ? parseInt(target, 10) : target;
+    if (Number.isNaN(parsedTarget)) {
+      return;
+    }
+
+    const clamped = Math.max(1, Math.min(this.total || 1, Math.floor(parsedTarget)));
 
     if (clamped === this.page) {
       return;
@@ -100,6 +107,51 @@ export default class SlPagination extends ShoelaceElement {
     }
   }
 
+  private getPaginationItems(): (number | string)[] {
+    const total = this.total;
+    const page = this.page;
+    const siblings = this.ELIPSIS_MAX_RANGE_TO_SHOW;
+
+    // Total bottoms when there are lot of pages:
+    const maxVisiblePages = 5 + siblings * 2;
+
+    // If the total is less than the greatest visible, show all numbers without ellipsis
+    if (total <= maxVisiblePages) {
+      return Array.from({ length: total }, (_, i) => i + 1);
+    }
+
+    // Calculate slibing indexes to decide if show or not the ellipsis
+    const leftSiblingIndex = Math.max(page - siblings, 2);
+    const rightSiblingIndex = Math.min(page + siblings, total - 1);
+
+    const showLeftEllipsis = leftSiblingIndex > 2;
+    const showRightEllipsis = rightSiblingIndex < total - 1;
+
+    const items: (number | string)[] = [1];
+
+    if (!showLeftEllipsis && showRightEllipsis) {
+      // Close to the start (Ej. 1 2 3 4 5 ... 20)
+      const leftItemCount = 3 + siblings * 2;
+      for (let i = 2; i <= leftItemCount; i++) items.push(i);
+      items.push(this.ELLIPSIS_STRING);
+      items.push(total);
+    } else if (showLeftEllipsis && !showRightEllipsis) {
+      // Close to the end (Ej. 1 ... 16 17 18 19 20)
+      items.push(this.ELLIPSIS_STRING);
+      const rightItemCount = 3 + siblings * 2;
+      for (let i = total - rightItemCount + 1; i <= total - 1; i++) items.push(i);
+      items.push(total);
+    } else {
+      // We are in the middle (Ej. 1 ... 4 5 6 ... 20)
+      items.push(this.ELLIPSIS_STRING);
+      for (let i = leftSiblingIndex; i <= rightSiblingIndex; i++) items.push(i);
+      items.push(this.ELLIPSIS_STRING);
+      items.push(total);
+    }
+
+    return items;
+  }
+
   render() {
     return html`
       <div
@@ -118,11 +170,11 @@ export default class SlPagination extends ShoelaceElement {
         >
           ←
         </button>
-        ${Array.from({ length: this.total }, (_, index) => index + 1).map(x => {
-          return html`
+        ${this.getPaginationItems().map(
+          x => html`
             <button
-              disabled=${this.disabled}
-              tabindex=${this.page === x ? '0' : '-1'}
+              ?disabled=${x === this.ELLIPSIS_STRING || this.disabled}
+              tabindex=${x === this.ELLIPSIS_STRING ? '-1' : this.page === x ? '0' : '-1'}
               class=${classMap({
                 pagination__item: true,
                 'pagination__item--active': this.page === x
@@ -131,8 +183,8 @@ export default class SlPagination extends ShoelaceElement {
             >
               ${x}
             </button>
-          `;
-        })}
+          `
+        )}
         <button
           class=${classMap({
             pagination__item: true
